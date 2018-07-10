@@ -1,0 +1,9 @@
+.city-log{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style: none;
+}
+.city-log li{
+    flex: 1;
+}
