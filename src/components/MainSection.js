@@ -2,10 +2,12 @@ import React from 'react';
 
 import './main-section.scss';
 
+import DateString from './DateString';
+
 const MainSection = () => {
     return(
         <div className="section main-section">  
-            MainSection
+            <DateString seconds={1531243200}/>  {/*  //TODO: pass seconds param from weather response */}
         </div>
     );
 }
