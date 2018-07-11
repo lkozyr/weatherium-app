@@ -1,0 +1,19 @@
+@keyframes loader-spinning{
+    from {transform: rotateZ(  0deg)}
+    to   {transform: rotateZ(359deg)}
+}
+.loader{
+    background: rgba(48, 47, 47, 0.93);
+    bottom:0;
+    display: grid;
+    left: 0;
+    place-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 300;
+}
+.loader img{
+    animation: loader-spinning 9s infinite linear;
+    width: 200px;
+}

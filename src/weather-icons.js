@@ -22,6 +22,7 @@ import search from  './icons/search.svg';
 import loader from  './icons/loader.svg';
 import pen    from  './icons/pen.svg'; 
 import settings from  './icons/settings.svg'; 
+import error from  './icons/error.svg'; 
 
 export const weatherIcons = {
     icon01d,
@@ -48,4 +49,5 @@ export const weatherIcons = {
     loader,
     pen,
     settings,
+    error,
 };

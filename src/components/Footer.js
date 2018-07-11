@@ -71,6 +71,4 @@ const Footer = () => {
     );
 }
 
-/*  Component does not use any props    */
-
 export default Footer;

@@ -1,3 +1,23 @@
 .main-section{
-   
+   min-height: 340px;
+}
+.date-wrapper{
+    background: rgb(49, 49, 49);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.date-string{
+    flex-basis: 90%;
+    padding-left: 5%;
+}
+.settings-icon{
+    flex-basis: 10%;
+}
+.settings-icon a{
+    display: block;
+    margin: 1em auto;
+}
+.settings-icon img{
+    width: 24px;
 }

@@ -1,0 +1,38 @@
+@font-face{
+    font-family: Assistant;
+    src: url('../fonts/Assistant-Regular.ttf');
+}
+@font-face{
+    font-family: PragatiNarrow;
+    src: url('../fonts/PragatiNarrow-Regular.ttf');
+}
+.error h2{
+    background: rgb(49, 49, 49);
+    font-family: Assistant;
+    font-size: 19px;
+    font-weight: 600;
+    height: 3em;
+    line-height: 3em;
+    margin: 0 auto;
+}
+.error img{
+    margin-top: 3em;
+}
+.error p{
+    font-family: PragatiNarrow;
+    font-size: 18px;
+}
+.error p:empty{
+    display: none;
+}
+.back{
+    color: rgb(221, 98, 98);
+    cursor: pointer;
+    font-family: PragatiNarrow;
+    font-size: 18px;
+    margin: 0 auto;
+    width: 5em;
+}
+.back:hover{
+    text-decoration: underline;
+}

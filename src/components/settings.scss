@@ -1,0 +1,42 @@
+@font-face{
+    font-family: Assistant;
+    src: url('../fonts/Assistant-Regular.ttf');
+}
+@font-face{
+    font-family: PragatiNarrow;
+    src: url('../fonts/PragatiNarrow-Regular.ttf');
+}
+.settings{
+    min-height: 340px;
+}
+.settings-header{
+    background: rgb(49, 49, 49);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.settings-header h2{
+    flex-basis: 92%;
+    font-family: Assistant;
+    font-size: 19px;
+    font-weight: 600;
+    height: 3em;
+    line-height: 3em;
+    margin: 0 auto;
+}
+.settings-header span{
+    cursor:pointer;
+    flex-basis: 8%;
+    font-family: Assistant;
+    font-size: 50px;
+    font-weight: 500;
+    height: 1.05em;
+    line-height: 1.05em;
+}
+.settings-units{
+    font-family: PragatiNarrow;
+    font-size: 18px;
+    padding-top: 2em;
+}
+
+

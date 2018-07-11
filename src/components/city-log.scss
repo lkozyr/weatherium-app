@@ -2,8 +2,36 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    justify-content: flex-start;
     list-style: none;
+    margin: 0.5em 0;
+    padding: 0;
 }
 .city-log li{
+    color: rgb(221, 98, 98);
+    cursor: pointer;
     flex: 1;
+    overflow: hidden;
+    font-family: Assistant;
+    font-size: 13px;
+    height: 2em;
+    line-height: 2em;
+    margin: 0.5em 0;
+    max-width: 20%;
+    text-align: center;
+}
+
+.city-log li:hover{
+    text-shadow: 0 0 2px rgb(192, 123, 123);
+}
+
+@media (min-width: 420px) and (max-width: 479px){
+    .city-log li{
+        font-size: 15px;
+    }
+}
+@media (min-width: 480px){
+    .city-log li{
+        font-size: 16px;
+    }
 }

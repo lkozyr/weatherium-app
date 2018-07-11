@@ -1,0 +1,98 @@
+@font-face{
+    font-family: Assistant;
+    src: url('../fonts/Assistant-Regular.ttf');
+}
+@font-face{
+    font-family: PragatiNarrow;
+    src: url('../fonts/PragatiNarrow-Regular.ttf');
+}
+
+.current-weather{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    place-items: center center;
+}
+.current-weather *{
+    color: rgb(174, 178, 189);
+    font-family: PragatiNarrow;
+    font-size: 18px;
+}
+
+.geo-coordinates{
+    color: rgb(26, 176, 211);
+    font-family: Assistant;
+    font-size: 15px;
+    font-weight: bold;
+    grid-column: -1 / 1;
+    position: relative;
+    text-align: center;
+    top: -1em;
+    z-index: 100;
+}
+
+.suntime,
+.temp,
+.icon{
+    grid-column: span 3;
+}
+
+.humidity,
+.wind,
+.description{
+    grid-column: span 2;
+}
+
+.suntime{
+    color: rgb(174, 178, 189);
+    font-family: Assistant;
+    font-size: 16px;
+    text-align: center;
+}
+
+.temp{
+    color: white;
+    font-family: Assistant;
+    font-size: 75px;
+    line-height: 1.33em;
+}
+
+.icon img{
+    height: 88px;
+}
+
+.humidity img{
+    height: 14px;
+    margin: 0 3px;
+}
+
+.description{
+    flex-basis: 33%;
+}
+.description::first-letter{
+    text-transform: capitalize;
+}
+
+@media (min-width: 360px) and (max-width: 419px){
+    .temp{
+        font-size: 85px;
+    }
+    .icon img{
+        height: 98px;
+    }
+}
+@media (min-width: 420px) and (max-width: 479px){
+    .temp{
+        font-size: 95px;
+    }
+    .icon img{
+        height: 112px;
+    }
+}
+@media (min-width: 480px){
+    .temp{
+        font-size: 105px;
+    }
+    .icon img{
+        height: 122px;
+    }
+}

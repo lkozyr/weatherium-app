@@ -5,6 +5,11 @@ import { getDateString } from '../helpers';
 import './date-string.scss';
 
 const DateString = props => {
+    if (!props.seconds)
+    {
+        return null;
+    }
+    
     return(
         <h2 className="date-string">  
             { getDateString(props.seconds) }
@@ -13,7 +18,7 @@ const DateString = props => {
 }
 
 DateString.propTypes = {
-    seconds: PropTypes.number.isRequired,
+    seconds: PropTypes.number,
 };
 
 export default DateString;
