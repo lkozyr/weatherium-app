@@ -2,9 +2,9 @@ import {
     ipstackURL, 
     openweathermapCurrentURL, 
     //openweathermapForecastURL, 
+    openweathermapAutocompleteURL,
     timezonedbURL 
 } from './third-party-urls';
-
 
 /**
  * Gets user's city name by IP address using third-party service https://ipstack.com.
@@ -142,6 +142,52 @@ export const getGMTOffsetByCoordinates = (lat, lng) => {
             }
 
             return data.gmtOffset
+        })
+        .catch(err => {
+            console.warn(err);
+            return null;
+        });
+}
+
+/**
+ * Retrieves a list of cities that begin from specified string. Good for autocomplete feature.
+ * @param {string} word - string a searched city name begins with.
+ * @returns {Array} list of cities that begin with the specified string. Every item is an object containing fields: id, name, country.
+ */
+export const getCitySuggestions = (word) => {
+    const autocompleteRequestParams = {
+        APPID: process.env.REACT_APP_OPENWEATHERMAP_API_KEY,
+        q: word
+    };
+
+    const autocompleteFetchURL = 
+        openweathermapAutocompleteURL +  
+        Object.keys(autocompleteRequestParams).map(
+            key => key + '=' + autocompleteRequestParams[key]).join('&');
+
+    return fetch(autocompleteFetchURL)
+        .then(data => {	
+            if (data.status === 200){
+                //console.log('autocomplete data:',data);
+                return data.json();
+            }
+            else{
+                // This happens when we receive Internal server error
+                return null;
+            }
+        })
+        .then(suggestions => {
+            //console.log('5. suggestions:', suggestions);
+            if (suggestions.cod === "200" && suggestions.list.length > 0){
+                return suggestions.list.map(item => { 
+                                            return { 
+                                                id: item.id, 
+                                                city: item.name, 
+                                                country: item.sys.country,
+                                            } 
+                                        });
+            } 
+            return null;
         })
         .catch(err => {
             console.warn(err);

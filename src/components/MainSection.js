@@ -11,6 +11,7 @@ import Loader from './Loader';
 import Error from './Error';
 import DateString from './DateString';
 import CityLog from './CityLog';
+import SearchBox from './SearchBox';
 import CurrentWeather from './CurrentWeather';
 
 const DEFAULT_CITY_LOG_LENGTH = 5;
@@ -98,19 +99,17 @@ class MainSection extends React.Component {
             gmtOffset = await getGMTOffsetByCoordinates(weatherData.lat, weatherData.lon);
 		}
 
-        // set city name and country code, if any is missing
-        // it is possible when user opens URL containing cityId instead of entering city into SearchBox
-		if (!cityData.cityName || !cityData.countryCode){
-			cityData.cityName = weatherData.city;
-			cityData.countryCode = weatherData.country;
-		}
+		// set city name and country code from weather response
+		cityData.cityName = weatherData.city;
+		cityData.countryCode = weatherData.country;
+
 
 		this.setCityData(cityData, gmtOffset);
 		this.setWeatherData(weatherData);
 		this.addCityToLog(cityData, gmtOffset);
 		this.setState({ isFetching: false });
 
-		this.props.history.push(`/${cityData.id}`);   // TODO: Double check if this is not pushing same city twice!!!
+		this.props.history.push(`/${cityData.id}`);  
 	}
 
     
@@ -130,12 +129,12 @@ class MainSection extends React.Component {
 		const path = this.props.match.path;
 		switch (path){
 
-            // load weather for a city stored in localStorage, if any; 
-            // otherwise define city from user's IP address:
+            // if there's no city in localStorage, define city from user's IP address:
 			case "/": 
 				if (!cityData){
+					this.setState({ isFetching: true });
 					cityData = await getCityByIP();
-					console.log(cityData);
+					this.setState({ isFetching: false });
 				}
 				break;
 
@@ -148,7 +147,7 @@ class MainSection extends React.Component {
 				};
                 break;
 
-            default: break; // TODO: show error / not found??
+            default: break; 
 
 		}
         
@@ -163,21 +162,21 @@ class MainSection extends React.Component {
 
 		if (this.state.isFetching){
 			return (
-				<div className="section main-section">
+				<div className="section">
 					<Loader />
 				</div>
 				);
 		}
-        else if (!this.state.weather || !this.state.city) {
+        else if ( (!this.state.weather || !this.state.city) && !this.state.isFetching) {
             return (
-				<div className="section main-section">
+				<div className="section">
 					<Error message={this.state.errorText}
 						   goBack={this.props.history.goBack} />
 				</div>
 				);
         }
         else return(
-            <div className="section main-section">  
+            <div className="section">  
 				<div className="date-wrapper">
 					<DateString seconds={this.state.weather.date}/> 
 
@@ -188,6 +187,9 @@ class MainSection extends React.Component {
                 
                 <CityLog cities={this.state.cityLog}           
                          loadWeatherForCity={this.loadWeatherForCity}/>  
+
+				<SearchBox city={this.state.city}
+                    	   loadWeatherForCity={this.loadWeatherForCity}/>
 
                 <CurrentWeather city={this.state.city}
 								weather={this.state.weather}
@@ -202,5 +204,4 @@ export default MainSection;
 
 
 // TODO:
-// 1. check if 'main-section' class is needed here: className="section main-section"
 // 2. add proptypes

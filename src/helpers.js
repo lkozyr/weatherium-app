@@ -97,3 +97,34 @@ export const removeDuplicates = (objectsArray) => {
     return objectsArray.filter( (item, index, self) => 
                         self.findIndex( t => t.id === item.id ) === index);
 }
+
+
+/**
+ * Constructs a string representing city and country code from city object.
+ * @param {Object} cityData - City object containing fields: id, name, country.
+ * @returns {Array} String in format 'City, CC'.
+ */
+export const constructSearchBoxValue = (cityData) => {
+    return `${cityData.cityName}, ${cityData.countryCode}`;
+}
+
+/**
+ * Gets city name and country code out of input value.
+ * @param {string} value - Input value, expected format: 'City[, CC]'.
+ * @returns {Object} City object containing fields: name and country, if available.
+ */
+export const parseSearchBoxValue = (value) => {
+    const words = value.trim().split(',');
+    if (words.length === 1){
+        return { 
+            city: words[0],
+            country: null,
+        };
+    }
+    if (words.length === 2){
+        return { 
+            city: words[0],
+            country: words[1],
+        };
+    }
+}
