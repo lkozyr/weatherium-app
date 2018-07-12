@@ -41,5 +41,7 @@ Created with React.js.
 2. Select 'Castle, GB' - first item from the suggestions list.
 3. Once the weather is loaded, notice that the city name is 'Bedford, GB'.
 
-*This is a known issue of [openweathermap.org](https://openweathermap.org) data provider.*
+*This is a known issue of [openweathermap.org](https://openweathermap.org) data provider. It was confirmed by openweathermap.com support team that the issue is caused by duplicated location names that lead to different cities. At the moment it is not possible to remove duplicates due to their infrustructure.*
 *Visit https://openweathermap.org/find to reproduce the same behaviour.*
+
+
