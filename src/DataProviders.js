@@ -1,10 +1,12 @@
 import { 
     ipstackURL, 
     openweathermapCurrentURL, 
-    //openweathermapForecastURL, 
+    openweathermapForecastURL, 
     openweathermapAutocompleteURL,
     timezonedbURL 
 } from './third-party-urls';
+
+import { filterForecastData } from './helpers';
 
 /**
  * Gets user's city name by IP address using third-party service https://ipstack.com.
@@ -50,7 +52,7 @@ export const getCityByIP = () => {
  * Gets current weather by cityId using third-party service http://api.openweathermap.org.
  * @param {Number} cityId - city id according to geonames.org database (see more: https://en.wikipedia.org/wiki/GeoNames)
  * @param {string} units - system of units, either of ['imperial', 'metric']. Default value is 'metric'.
- * @returns {object} weather containing fields: id, date, city, sunrise, sunset, lat, lon, icon, description, humidity, windDir, windSpeed, and temp - if request was successful, otherwise returns null.
+ * @returns {object} weather object containing fields: id, date, city, sunrise, sunset, lat, lon, icon, description, humidity, windDir, windSpeed, and temp - if request was successful, otherwise returns null.
  */
 export const getCurrentWeather = (cityId, units='metric') => {
     if (!cityId) {
@@ -128,7 +130,6 @@ export const getGMTOffsetByCoordinates = (lat, lng) => {
     return fetch(gmtOffsetFetchURL)
         .then(data => {	
             if (data.status === 200){
-                //console.log('ip data:',data);
                 return data.json();
             }
             else{
@@ -140,7 +141,6 @@ export const getGMTOffsetByCoordinates = (lat, lng) => {
             if (!data) {
                 return null;
             }
-
             return data.gmtOffset
         })
         .catch(err => {
@@ -150,7 +150,7 @@ export const getGMTOffsetByCoordinates = (lat, lng) => {
 }
 
 /**
- * Retrieves a list of cities that begin from specified string. Good for autocomplete feature.
+ * Retrieves a list of cities that begin from the specified string. Good for autocomplete feature.
  * @param {string} word - string a searched city name begins with.
  * @returns {Array} list of cities that begin with the specified string. Every item is an object containing fields: id, name, country.
  */
@@ -168,16 +168,13 @@ export const getCitySuggestions = (word) => {
     return fetch(autocompleteFetchURL)
         .then(data => {	
             if (data.status === 200){
-                //console.log('autocomplete data:',data);
                 return data.json();
             }
             else{
-                // This happens when we receive Internal server error
                 return null;
             }
         })
         .then(suggestions => {
-            //console.log('5. suggestions:', suggestions);
             if (suggestions.cod === "200" && suggestions.list.length > 0){
                 return suggestions.list.map(item => { 
                                             return { 
@@ -187,6 +184,51 @@ export const getCitySuggestions = (word) => {
                                             } 
                                         });
             } 
+            return null;
+        })
+        .catch(err => {
+            console.warn(err);
+            return null;
+        });
+}
+
+
+/**
+ * Gets 5 day weather forecast by cityId using third-party service http://api.openweathermap.org.
+ * @param {Number} cityId - city id according to geonames.org database (see more: https://en.wikipedia.org/wiki/GeoNames)
+ * @param {string} units - system of units, either of ['imperial', 'metric']. Default value is 'metric'.
+ * @param {Number} gmtOffset - GMT Offset represented by number of seconds. Example: -7200.
+ * @returns {object} forecast object - if request was successful, otherwise returns null.
+ */
+export const getWeatherForecast = (cityId, units='metric', gmtOffset = 0) => {
+    if (!cityId) {
+        return null;
+    }
+    const forecastRequestParams = {
+        APPID: process.env.REACT_APP_OPENWEATHERMAP_API_KEY,
+        id: cityId,
+        units: units,
+        lang: 'en_US',  
+    }
+    
+    const forecastFetchURL = 
+        openweathermapForecastURL +  
+        Object.keys(forecastRequestParams).map(key => key + '=' + forecastRequestParams[key]).join('&');
+
+    return fetch(forecastFetchURL)
+        .then(data => {	
+            if (data.status === 200){
+                return data.json();
+            }
+            else{
+                console.warn('Error in getWeatherForecast. Error code: ', data.status);
+                return null;
+            }
+        })
+        .then(data => {
+            if (data && data.cod === "200") {
+                return filterForecastData(data.list, gmtOffset); 
+            }; 
             return null;
         })
         .catch(err => {

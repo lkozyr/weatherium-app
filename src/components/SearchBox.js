@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { getCitySuggestions } from '../DataProviders';
+import './search-box.scss';
+
 import { constructSearchBoxValue, parseSearchBoxValue } from '../helpers';
+import { getCitySuggestions } from '../DataProviders';
 import { weatherIcons } from '../weather-icons';
 
-import './search-box.scss';
 
 class SearchBox extends React.Component {
 
@@ -268,6 +269,5 @@ SearchBox.propTypes = {
     }).isRequired,
     loadWeatherForCity: PropTypes.func.isRequired,
 };
-
 
 export default SearchBox;

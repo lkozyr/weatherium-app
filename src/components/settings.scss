@@ -7,7 +7,9 @@
     src: url('../fonts/PragatiNarrow-Regular.ttf');
 }
 .settings{
+    background: rgb(54, 53, 53);
     min-height: 340px;
+    width: 100%;
 }
 .settings-header{
     background: rgb(49, 49, 49);
@@ -32,6 +34,7 @@
     font-weight: 500;
     height: 1.05em;
     line-height: 1.05em;
+    max-width: 54px;
 }
 .settings-units{
     font-family: PragatiNarrow;

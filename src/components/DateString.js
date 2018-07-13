@@ -12,13 +12,14 @@ const DateString = props => {
     
     return(
         <h2 className="date-string">  
-            { getDateString(props.seconds) }
+            { getDateString(props.seconds, props.keepComma) }
         </h2>
     );
 }
 
 DateString.propTypes = {
     seconds: PropTypes.number,
+    keepComma: PropTypes.bool,
 };
 
 export default DateString;

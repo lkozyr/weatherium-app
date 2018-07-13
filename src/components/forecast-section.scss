@@ -1,0 +1,29 @@
+.forecast-section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.forecast-section li{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.forecast-section li:nth-child(2n+1){
+    background: rgb(50, 49, 48);
+}
+
+.forecast-section h2.date-string{
+    flex: 1;
+    font-size: 16px;
+    font-weight: normal;
+    height: 3.3em;
+    line-height: 1.5em;
+    margin: 0;
+    padding-top: 0.5em;
+    white-space: pre-wrap;
+}

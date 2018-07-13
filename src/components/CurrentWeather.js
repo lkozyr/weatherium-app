@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './current-weather.scss';
-import { formatCoordinates, convertToDayTime } from '../helpers';
 
+import { convertToDayTime, formatCoordinates } from '../helpers';
 import { weatherIcons } from '../weather-icons';
-import Wind from './Wind';
 
+import Wind from './Wind';
 
 
 const CurrentWeather = props => {

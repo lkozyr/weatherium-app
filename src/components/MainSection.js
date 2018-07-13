@@ -1,27 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './main-section.scss';
 
-import { getCityByIP, getCurrentWeather, getGMTOffsetByCoordinates } from '../DataProviders';
+import { getCityByIP, getCurrentWeather, getGMTOffsetByCoordinates, getWeatherForecast } from '../DataProviders';
 import { removeDuplicates } from '../helpers';
 import { weatherIcons } from '../weather-icons';
 
-import Loader from './Loader';
-import Error from './Error';
-import DateString from './DateString';
 import CityLog from './CityLog';
-import SearchBox from './SearchBox';
 import CurrentWeather from './CurrentWeather';
+import DateString from './DateString';
+import Error from './Error';
+import ForecastSection from './ForecastSection';
+import Loader from './Loader';
+import SearchBox from './SearchBox';
+
 
 const DEFAULT_CITY_LOG_LENGTH = 5;
-
 
 class MainSection extends React.Component {
     state = {
 		city: 		null,
-		weather: 	null,
 		cityLog: 	null,
+		weather: 	null,
+		forecast: 	null,
 		isFetching: false,
 		errorText: 	null,
     };
@@ -99,6 +102,9 @@ class MainSection extends React.Component {
             gmtOffset = await getGMTOffsetByCoordinates(weatherData.lat, weatherData.lon);
 		}
 
+		const forecast = await getWeatherForecast(cityData.id, this.props.settings.units, gmtOffset);
+		this.setState({ forecast });
+
 		// set city name and country code from weather response
 		cityData.cityName = weatherData.city;
 		cityData.countryCode = weatherData.country;
@@ -162,38 +168,49 @@ class MainSection extends React.Component {
 
 		if (this.state.isFetching){
 			return (
-				<div className="section">
-					<Loader />
-				</div>
+				<Loader />
 				);
 		}
         else if ( (!this.state.weather || !this.state.city) && !this.state.isFetching) {
             return (
-				<div className="section">
-					<Error message={this.state.errorText}
+				<Error message={this.state.errorText}
 						   goBack={this.props.history.goBack} />
-				</div>
 				);
         }
         else return(
-            <div className="section">  
-				<div className="date-wrapper">
-					<DateString seconds={this.state.weather.date}/> 
+            <div className="main-section">  
+				<div className="section">
+					<div className="date-wrapper">
+						<DateString seconds={this.state.weather.date}
+									keepComma={true}/> 
 
-					<div className="settings-icon">
-						<Link to="/settings" ><img src={weatherIcons['settings']} alt="Settings"/></Link>
+						<div className="settings-icon">
+							<Link to="/settings" ><img src={weatherIcons['settings']} alt="Settings"/></Link>
+						</div>
 					</div>
+					
+					<CityLog cities={this.state.cityLog}           
+							loadWeatherForCity={this.loadWeatherForCity}/>  
+
+					<SearchBox city={this.state.city}
+							loadWeatherForCity={this.loadWeatherForCity}/>
+
+					<CurrentWeather city={this.state.city}
+									weather={this.state.weather}
+									settings={this.props.settings}/>
 				</div>
-                
-                <CityLog cities={this.state.cityLog}           
-                         loadWeatherForCity={this.loadWeatherForCity}/>  
 
-				<SearchBox city={this.state.city}
-                    	   loadWeatherForCity={this.loadWeatherForCity}/>
-
-                <CurrentWeather city={this.state.city}
-								weather={this.state.weather}
-								settings={this.props.settings}/>
+				<div className="section">
+					{
+						this.state.forecast
+							? 
+								<ForecastSection forecast={this.state.forecast}
+												settings={this.props.settings}/>
+							:
+								null
+					}
+				</div>
+				
             </div>
         );
     }
@@ -202,6 +219,10 @@ class MainSection extends React.Component {
 
 export default MainSection; 
 
-
-// TODO:
-// 2. add proptypes
+MainSection.propTypes = {
+	settings: PropTypes.shape({
+        units: PropTypes.oneOf(['imperial', 'metric']).isRequired,
+	}).isRequired,
+	history: PropTypes.object.isRequired,
+	match: PropTypes.object.isRequired,
+}

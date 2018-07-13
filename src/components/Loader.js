@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { weatherIcons } from '../weather-icons';
 import './loader.scss';
+import { weatherIcons } from '../weather-icons';
+
 
 const Loader = () => {
     return(
@@ -12,4 +13,3 @@ const Loader = () => {
 }
 
 export default Loader;
-

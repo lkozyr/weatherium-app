@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { weatherIcons } from '../weather-icons';
 import './error.scss';
+import { weatherIcons } from '../weather-icons';
 
 const Error = props => {
     return(

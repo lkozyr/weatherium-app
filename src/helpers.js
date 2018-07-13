@@ -74,7 +74,6 @@ export const formatCoordinates = (lat, lon) => {
  * @returns {string} Time string in 'hh:mm' format. Example: '05:24'.
  */
 export const convertToDayTime = (seconds, gmtOffset) => {
-    //console.log('convertToDayTime', seconds);
     const date = new Date((seconds + gmtOffset) * 1000);
     
     let hours = '00' + date.getUTCHours();
@@ -83,7 +82,6 @@ export const convertToDayTime = (seconds, gmtOffset) => {
     let minutes = '00' + date.getUTCMinutes();
     minutes = minutes.substr(minutes.length-2, 2);
 
-    //console.log('convertToDayTime', `${hours}:${minutes}`);
     return `${hours}:${minutes}`;
 }
 
@@ -127,4 +125,57 @@ export const parseSearchBoxValue = (value) => {
             country: words[1],
         };
     }
+}
+
+/**
+ * Filters API forecast response and returns data needed for forecast component only.
+ * @param {string} data - API forecast response: list of 40 weather objects.
+ * @returns {Array} Weather objects array, every item has fields: date, icon, tempMin, tempMax, windSpeed, windDir.
+ */
+export const filterForecastData = (data, gmtOffset) => {
+    if (!data){
+        return null;
+    }
+ 
+    const forecast = [];
+    const nextDayIndex = data.findIndex(item => {
+        const localHours = ( new Date ( (item.dt + gmtOffset) * 1000 ) ).getUTCHours();
+        return (localHours >= 0 && localHours <= 2);
+    });
+
+    // retrieve night temperatures
+    for (let i = nextDayIndex; i < data.length; i += 8) {
+        const forecastDay = {
+            date:       data[i].dt,
+            tempMin:    Math.round(parseFloat(data[i].main.temp)),
+        };
+        forecast.push(forecastDay);
+    }
+
+    let j = 0; // iteration counter through forecast array
+
+    // retrieve day temperatures and weather icon
+    for (let i = nextDayIndex+4; i < data.length; i += 8) {
+        forecast[j].icon =          data[i].weather[0].icon;
+        forecast[j].description =   data[i].weather[0].description;
+        forecast[j].tempMax =       Math.round(parseFloat(data[i].main.temp));
+        forecast[j].windSpeed =     Math.round(parseFloat(data[i].wind.speed));
+        forecast[j].windDir =       Math.round(parseFloat(data[i].wind.deg));
+        j++;
+    }
+
+    // check if the fifth forecast item has all properties defined,
+    // if not - it means that there was not enough data provided by API,
+    // and we will take the missing properties from the last available item of data array;
+    // reason for missing data: API provides only 40 items in forecast array (8 items per day, for 5 days)
+    // taking gmtOffset and current time into account, 40 items may not be enough
+    if (!forecast[forecast.length-1].tempMax) {
+        forecast[forecast.length-1].tempMax =           Math.round(parseFloat(data[data.length-1].main.temp));
+        forecast[forecast.length-1].icon =              data[data.length-1].weather[0].icon;
+        forecast[forecast.length-1].description =       data[data.length-1].weather[0].description;
+        forecast[forecast.length-1].windSpeed =         Math.round(parseFloat(data[data.length-1].wind.speed));
+        forecast[forecast.length-1].windDir =           Math.round(parseFloat(data[data.length-1].wind.deg));
+    }
+
+    return forecast;
 }

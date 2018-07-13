@@ -14,7 +14,7 @@ const Settings = props => {
     }
 
     return(
-        <div className="section settings">
+        <div className="settings">
 
             <div className="settings-header">
                 <h2>Settings</h2>

@@ -1,0 +1,47 @@
+@font-face{
+    font-family: Assistant;
+    src: url('../fonts/Assistant-Regular.ttf');
+}
+@font-face{
+    font-family: PragatiNarrow;
+    src: url('../fonts/PragatiNarrow-Regular.ttf');
+}
+
+.forecast-day{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.forecast-day .temp-max{
+    font-family: Assistant;
+    font-size: 30px;
+    font-weight: bold;
+    height: 2.3em;
+    line-height:3em; 
+}
+
+.forecast-day .temp-min{
+    color: rgb(174, 178, 189);
+    font-family: PragatiNarrow;
+    font-size: 19px;
+    height: 5em;
+    line-height:2em; 
+}
+
+.forecast-day .icon{
+    height: 120px;
+    line-height: 160px;
+}
+.forecast-day .icon img{
+    height: 45px;
+}
+.forecast-day .wind{
+    height: 3.7em;
+    line-height: 3em;
+}
+.forecast-day .wind span{
+    color: rgb(174, 178, 189);
+    font-family: PragatiNarrow;
+    font-size: 18px;
+}

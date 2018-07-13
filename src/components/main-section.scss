@@ -1,4 +1,14 @@
-
+.main-section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.section{
+    max-width: 560px;
+    min-width: 320px;
+    min-height: 340px;
+    width: 100%;
+}
 .date-wrapper{
     background: rgb(49, 49, 49);
     display: flex;
@@ -18,4 +28,10 @@
 }
 .settings-icon img{
     width: 24px;
+}
+
+@media (min-width: 964px){
+    .section{
+        width: 50%;
+    }
 }

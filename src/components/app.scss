@@ -8,21 +8,16 @@
     min-height: 367px;
 	min-width: 320px;
 	position: relative;
-  	text-align: center;
+    text-align: center;
+    width: 100%;
 }
-.section{
+.main-section{
     background: rgb(54, 53, 53);
     min-height: 340px;
 	width: 100%;
 }
 .footer{
     width: 100%;
-}
-
-@media (max-width: 559px){
-    .app{
-        width: 100%;
-    }
 }
 
 @media (min-width: 560px) and (max-width: 963px){
