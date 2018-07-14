@@ -9,7 +9,7 @@ Created with React.js.
 - remembers 5 last viewed cities
 - allows to select preferred units system: metric or imperial
 - defines current user city by IP
-- searches city while typing
+- shows city suggestions while typing
 - looks great on both mobile and desktop
 
 
@@ -18,6 +18,7 @@ Created with React.js.
  - [ipstack.com](https://ipstack.com/) - Allows to define current user's city by IP
  - [openweathermap.org](https://openweathermap.org) - Provides current weather and 5 day forecast
  - [timezonedb.com/](https://timezonedb.com/) - Allows to define GMT offset in the specified city (GMT offset is then used to convert sunrise and sunset UTC time to local time in that city)
+ - [splashbase.co](https://www.splashbase.co/) - Provides quality photos used as a background image
 
 
 ## Icons and fonts

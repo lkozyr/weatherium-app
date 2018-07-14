@@ -3,6 +3,8 @@
     src: url('../fonts/Assistant-Regular.ttf');
 }
 .date-string{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     background: rgb(49, 49, 49);
     font-family: Assistant;
     font-size: 19px;

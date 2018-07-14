@@ -8,11 +8,15 @@
 }
 .settings{
     background: rgb(54, 53, 53);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     min-height: 340px;
     width: 100%;
 }
 .settings-header{
     background: rgb(49, 49, 49);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

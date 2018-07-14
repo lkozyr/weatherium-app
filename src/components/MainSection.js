@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 
 import './main-section.scss';
 
-import { getCityByIP, getCurrentWeather, getGMTOffsetByCoordinates, getWeatherForecast } from '../DataProviders';
+import { getCityByIP, 
+		 getCurrentWeather, 
+		 getGMTOffsetByCoordinates, 
+		 getWeatherForecast 
+	} from '../DataProviders';
+	
 import { removeDuplicates } from '../helpers';
 import { weatherIcons } from '../weather-icons';
 
@@ -27,6 +32,7 @@ class MainSection extends React.Component {
 		forecast: 	null,
 		isFetching: false,
 		errorText: 	null,
+		bgImage: 	null,
     };
 
     getCityLogFromLocalStorage = () => {
@@ -76,7 +82,7 @@ class MainSection extends React.Component {
 		this.setState({ cityLog: uniqueCityLog });
 		localStorage.setItem(`cityLog`, JSON.stringify(uniqueCityLog));
 	}
-    
+
     loadWeatherForCity = async (cityData) => {
 
 		this.setState({ errorText: null });
@@ -109,6 +115,7 @@ class MainSection extends React.Component {
 		cityData.cityName = weatherData.city;
 		cityData.countryCode = weatherData.country;
 
+		this.props.setBackgroundImage(cityData.cityName, weatherData.description);
 
 		this.setCityData(cityData, gmtOffset);
 		this.setWeatherData(weatherData);
@@ -154,7 +161,6 @@ class MainSection extends React.Component {
                 break;
 
             default: break; 
-
 		}
         
         if (cityLog) {
@@ -174,7 +180,7 @@ class MainSection extends React.Component {
         else if ( (!this.state.weather || !this.state.city) && !this.state.isFetching) {
             return (
 				<Error message={this.state.errorText}
-						   goBack={this.props.history.goBack} />
+					   goBack={this.props.history.goBack} />
 				);
         }
         else return(
@@ -220,9 +226,11 @@ class MainSection extends React.Component {
 export default MainSection; 
 
 MainSection.propTypes = {
-	settings: PropTypes.shape({
-        units: PropTypes.oneOf(['imperial', 'metric']).isRequired,
+	settings: 			PropTypes.shape({
+        units: 			PropTypes.oneOf(['imperial', 'metric']).isRequired,
 	}).isRequired,
-	history: PropTypes.object.isRequired,
-	match: PropTypes.object.isRequired,
+
+	setBackgroundImage: PropTypes.func.isRequired,
+	history: 			PropTypes.object.isRequired,
+	match: 				PropTypes.object.isRequired,
 }

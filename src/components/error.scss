@@ -8,11 +8,15 @@
 }
 .error{
     background: rgb(54, 53, 53);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     min-height: 340px;
     width: 100%;
 }
 .error h2{
     background: rgb(49, 49, 49);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     font-family: Assistant;
     font-size: 19px;
     font-weight: 600;

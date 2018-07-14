@@ -1,5 +1,13 @@
+:root{
+    --body-bg-url: linear-gradient(rgb(189, 188, 188), rgb(33, 33, 33));
+}
+body{
+    min-height: 100vh;
+    width: 100%;
+}
 .app {
-	box-shadow: 0 0 3px gray;
+    border-radius: 5px;
+	box-shadow: 0 0 15px rgba(16, 15, 15, 0.7);
 	color: white;
 	display: flex;
     flex-direction: row;
@@ -21,6 +29,12 @@
 }
 
 @media (min-width: 560px) and (max-width: 963px){
+    body{
+        background-image: var(--body-bg-url);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
     .app{
         max-width: 560px;
         width: 98%;
@@ -28,8 +42,14 @@
 }
 
 @media (min-width: 964px){
+    body{
+        background-image: var(--body-bg-url);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding-top: 16vh;
+    }
     .app{
-        margin: 16vh auto;
         max-width: 1120px;
         width: 98%;
 	}

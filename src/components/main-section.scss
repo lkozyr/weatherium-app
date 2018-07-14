@@ -1,9 +1,14 @@
 .main-section{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 .section{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    line-height: 1.2em;
     max-width: 560px;
     min-width: 320px;
     min-height: 340px;
@@ -11,6 +16,8 @@
 }
 .date-wrapper{
     background: rgb(49, 49, 49);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;

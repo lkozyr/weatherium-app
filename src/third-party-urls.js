@@ -13,3 +13,6 @@ export const openweathermapAutocompleteURL = `http://api.openweathermap.org/data
 
 // Get city gmtOffset by city latitude & longitude:
 export const timezonedbURL = `http://api.timezonedb.com/v2/get-time-zone?`;
+
+// Get random image for background, based on city name, country code, weather description:
+export const splashbaseURL = `http://www.splashbase.co/api/v1/images/search?`;

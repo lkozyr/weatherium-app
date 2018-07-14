@@ -16,6 +16,9 @@
 .forecast-section li:nth-child(2n+1){
     background: rgb(50, 49, 48);
 }
+.forecast-section li:last-child{
+    border-top-right-radius: 5px;
+}
 
 .forecast-section h2.date-string{
     flex: 1;
