@@ -1,7 +1,8 @@
 ## Weatherium app
 
 Web application that shows current weather for the specified city and 5 day weather forecast.
-Created with React.js.
+Created with React.js. 
+Live link: [Weatherium app](http://weather-app-20180703.epizy.com/).
 
 
 ## Features
@@ -11,6 +12,7 @@ Created with React.js.
 - defines current user city by IP
 - shows city suggestions while typing
 - looks great on both mobile and desktop
+- loads a new awesome background image every day :)
 
 
 ## Third Party Data Providers
