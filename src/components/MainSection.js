@@ -23,6 +23,12 @@ import SearchBox from './SearchBox';
 
 
 const DEFAULT_CITY_LOG_LENGTH = 5;
+const DEFAULT_CITY_DATA = {
+	cityName: 		'New York',
+	countryCode: 	'US',
+	gmtOffset: 		-14400,
+	id: 			5128581,
+}
 
 class MainSection extends React.Component {
     state = {
@@ -87,9 +93,11 @@ class MainSection extends React.Component {
 
 		this.setState({ errorText: null });
 
-        if (!cityData.id){
-			this.setState({ errorText: `Incorrect city id.`});
-            return;		
+		// if it is a first-time user and thus they don't have cityData in localStorage yet
+		// and if city cannot be defined by IP for any reason (any http://api.ipstack.com/check API error)
+		// we'll use a default city to load weather data instead of showing error:
+        if (!cityData || !cityData.id){
+			cityData = Object.assign({}, DEFAULT_CITY_DATA);	
         }
 
 		// begin fetching data:
