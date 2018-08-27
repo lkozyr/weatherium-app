@@ -27,12 +27,6 @@
     height: 3.3em;
     line-height: 1.5em;
     margin: 0;
-    padding-top: 0.5em;
+    padding: 0.5em 0 0 0;
     white-space: pre-wrap;
-}
-
-@media (max-width: 560px){
-	.forecast-section h2.date-string{
-		font-size: 15px;
-	}
 }
